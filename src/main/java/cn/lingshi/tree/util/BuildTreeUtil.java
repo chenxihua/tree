@@ -81,7 +81,6 @@ public class BuildTreeUtil {
                     }
                 }
             }
-
             // 之前每一个域的的所有子设备
             for (VmDomain domain : domains) {
                 List<DevTreeNode> devList = getChildsDevList(domain);
@@ -101,6 +100,7 @@ public class BuildTreeUtil {
      * @return
      */
     public List<DevTreeNode> getChilds(List<VmDomain> parentDomainNode){
+        List<VmDomain> removeDomains = new ArrayList<>();
         // 设置返回值
         List<DevTreeNode> againResult = new ArrayList<>();
         if (parentDomainNode.size()>0){
@@ -108,9 +108,13 @@ public class BuildTreeUtil {
                 for (VmDomain domainNode : domainNodes) {
                     if (domainNode.getParentId().equals(pareDomain.getDomainId())){
                         againResult.add(saveDevTreeNode(0, domainNode.getDomainName(), domainNode));
+                        // 删除已经用过和查询匹配过了的子域
+                        removeDomains.add(domainNode);
                     }
                 }
             }
+            // 在遍历之外进行删除
+            domainNodes.removeAll(removeDomains);
         }
         return againResult;
     }
@@ -122,12 +126,17 @@ public class BuildTreeUtil {
      * @return
      */
     public List<DevTreeNode> getChildsDevList(VmDomain vmDomain){
+        List<VmDevice> removeDevs = new ArrayList<>();
         List<DevTreeNode> againResult = new ArrayList<>();
         for (VmDevice vmDevice : deviceNodes) {
             if (vmDevice.getDomainId().equals(vmDomain.getDomainId())){
                 againResult.add(saveDevTreeNode(1, vmDevice.getDevName(), vmDevice));
+                // 删除已经用过和查询匹配过了的子设备
+                removeDevs.add(vmDevice);
             }
         }
+        // 在遍历之外删除
+        deviceNodes.removeAll(removeDevs);
         return againResult;
     }
 
