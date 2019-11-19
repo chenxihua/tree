@@ -26,6 +26,7 @@ public class DevTreeController {
     @GetMapping(value = "/getAlls")
     public Result getAllDomainTree(){
         return domainService.getDomainTree();
+
     }
 
 

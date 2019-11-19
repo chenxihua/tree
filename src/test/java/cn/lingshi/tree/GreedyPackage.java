@@ -1,8 +1,11 @@
 package cn.lingshi.tree;
 
+import cn.lingshi.tree.util.MyList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName: GreedyPackage
@@ -86,5 +89,68 @@ public class GreedyPackage {
     }
 
 
+    @Test
+    public void testHashMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("1", "chenxihua");
+        map.put("", "zhongchuying");
+        int size = map.size();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        System.out.println(size);
+    }
+
+
+    @Test
+    public void testTime(){
+        String timeStr = "2018-01-01T12:00:00";
+        int hashCode = timeStr.hashCode();
+        int intVal = getIntVal(hashCode);
+        String replace = timeStr.replace("T", "-").replace(":", "-");
+        System.out.println("==> :"+replace+"; "+hashCode+"; "+getIntVal(hashCode)+"; "+indexForVal(intVal, 16));
+    }
+
+    public int getIntVal(int h){
+        h ^= (h >>> 20) ^ (h >>> 12);
+        return h ^ (h >>> 7) ^ (h >>> 4);
+    }
+
+    public int indexForVal(int h, int length) {
+        return h & (length-1);
+    }
+
+    @Test
+    public void testMax(){
+        int max = Math.max(14, 16);
+        System.out.println(max);
+
+    }
+
+
+    @Test
+    public void testMyList(){
+        MyList myList = new MyList();
+        myList.add(11);
+        myList.add(22);
+        myList.add(33);
+        myList.add(44);
+        myList.add(55);
+        myList.add(66);
+        myList.add(77);
+
+        myList.insert(999, 1);
+        myList.modify(9999, 5);
+        myList.add(123456);
+
+        int i = myList.get(3);
+        int myListIndex = myList.getIndex(66);
+
+        for (int j = 0; j < myList.getSize(); j++) {
+            System.out.println(myList.get(j));
+        }
+        System.out.println("i: "+i);
+        System.out.println("index: "+myListIndex);
+    }
 
 }
