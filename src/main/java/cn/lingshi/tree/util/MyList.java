@@ -2,7 +2,6 @@ package cn.lingshi.tree.util;
 
 import cn.lingshi.tree.bean.vo.Node;
 import cn.lingshi.tree.bean.vo.NodeList;
-
 /**
  * @ClassName: MyList
  * @Create By: chenxihua
